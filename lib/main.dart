@@ -25,11 +25,76 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  List<Icon> scoreKeeper = [];
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[],
+      children: <Widget>[
+        Expanded(
+          flex: 5,
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Center(
+              child: Text(
+                'This is where the question text will appear',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 25,
+                ),
+              ),
+            ),
+          ),
+        ),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(15),
+            child: TextButton(
+              child: Text('True'),
+              style: TextButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  foregroundColor: Colors.white,
+                  textStyle: TextStyle(fontSize: 20),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5))),
+              onPressed: () {
+                setState(() {
+                  scoreKeeper.add(Icon(Icons.check, color: Colors.green));
+
+                });
+
+                // User clicked true
+              },
+            ),
+          ),
+        ),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(15),
+            child: TextButton(
+              child: Text('False'),
+              style: TextButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  foregroundColor: Colors.white,
+                  textStyle: TextStyle(fontSize: 20),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5))),
+              onPressed: () {
+                setState(() {
+                  scoreKeeper.add(Icon(Icons.close, color: Colors.red));
+
+                });
+                // User clicked true
+              },
+            ),
+          ),
+        ),
+        Row(children: scoreKeeper),
+      ],
     );
   }
 }
+
+// TODO 1 - create a stateless widget called Result (Assigned to: Anna)
+// The result is used for displaying the quiz result
