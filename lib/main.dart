@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:quiz/question.dart';
 void main() => runApp(Quiz());
 
 class Quiz extends StatelessWidget {
@@ -26,8 +26,17 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
+
+  List<bool> answers = [false, true, true];
+  List<Question> questionsList = [
+    Question(q: 'You can lead a cow down stairs but not up stairs.', a: false),
+    Question(q: 'Approximately one quarter of human bones are in the feet.', a: true),
+    Question(q: 'A slug\'s blood is green.', a: true)
+  ];
+  int questionNumber = 0;
   @override
   Widget build(BuildContext context) {
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
@@ -37,7 +46,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: const EdgeInsets.all(10),
             child: Center(
               child: Text(
-                'This is where the question text will appear',
+                questionsList[questionNumber].questionText,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
@@ -59,12 +68,16 @@ class _QuizPageState extends State<QuizPage> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5))),
               onPressed: () {
-                setState(() {
-                  scoreKeeper.add(Icon(Icons.check, color: Colors.green));
-
-                });
-
                 // User clicked true
+                bool correctAnswer = questionsList[questionNumber].answer;
+                if(correctAnswer == true){
+                  print('User chose the correct answer');
+                }else{
+                  print('User chose the wrong answer');
+                }
+                setState(() {
+                  questionNumber++;
+                });
               },
             ),
           ),
@@ -81,11 +94,16 @@ class _QuizPageState extends State<QuizPage> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5))),
               onPressed: () {
+                // User clicked false
+                bool correctAnswer = questionsList[questionNumber].answer;
+                if(correctAnswer == false){
+                  print('User chose the correct answer');
+                }else{
+                  print('User chose the wrong answer');
+                }
                 setState(() {
-                  scoreKeeper.add(Icon(Icons.close, color: Colors.red));
-
+                  questionNumber++;
                 });
-                // User clicked true
               },
             ),
           ),
@@ -96,5 +114,4 @@ class _QuizPageState extends State<QuizPage> {
   }
 }
 
-// TODO 1 - create a stateless widget called Result (Assigned to: Anna)
-// The result is used for displaying the quiz result
+// TODO
