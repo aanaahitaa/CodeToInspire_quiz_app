@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:quiz/question.dart';
+import 'package:quiz/quiz_brain.dart';
+
+QuizBrain quizBrain = QuizBrain();
 void main() => runApp(Quiz());
 
 class Quiz extends StatelessWidget {
@@ -27,16 +29,8 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
 
-  List<bool> answers = [false, true, true];
-  List<Question> questionsList = [
-    Question(q: 'You can lead a cow down stairs but not up stairs.', a: false),
-    Question(q: 'Approximately one quarter of human bones are in the feet.', a: true),
-    Question(q: 'A slug\'s blood is green.', a: true)
-  ];
-  int questionNumber = 0;
   @override
   Widget build(BuildContext context) {
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
@@ -46,7 +40,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: const EdgeInsets.all(10),
             child: Center(
               child: Text(
-                questionsList[questionNumber].questionText,
+                quizBrain.getQuestionText(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
@@ -69,14 +63,14 @@ class _QuizPageState extends State<QuizPage> {
                       borderRadius: BorderRadius.circular(5))),
               onPressed: () {
                 // User clicked true
-                bool correctAnswer = questionsList[questionNumber].answer;
-                if(correctAnswer == true){
+                bool correctAnswer = quizBrain.getCorrectAnswer();
+                if (correctAnswer == true) {
                   print('User chose the correct answer');
-                }else{
+                } else {
                   print('User chose the wrong answer');
                 }
                 setState(() {
-                  questionNumber++;
+                  quizBrain.nextQuestion();
                 });
               },
             ),
@@ -95,14 +89,15 @@ class _QuizPageState extends State<QuizPage> {
                       borderRadius: BorderRadius.circular(5))),
               onPressed: () {
                 // User clicked false
-                bool correctAnswer = questionsList[questionNumber].answer;
-                if(correctAnswer == false){
+                bool correctAnswer = quizBrain.getCorrectAnswer();
+
+                if (correctAnswer == false) {
                   print('User chose the correct answer');
-                }else{
+                } else {
                   print('User chose the wrong answer');
                 }
                 setState(() {
-                  questionNumber++;
+                  quizBrain.nextQuestion();
                 });
               },
             ),
