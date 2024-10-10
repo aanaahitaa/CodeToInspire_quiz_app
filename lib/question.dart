@@ -1,11 +1,9 @@
-class Question{
+class Question {
   late String questionText;
   late bool answer;
 
-  Question({required String q, required bool a}){
-    questionText = q;
-    answer = a;
-
+  Question({required String question, required bool answer}) {
+    questionText = question;
+    this.answer = answer;
   }
 }
-
